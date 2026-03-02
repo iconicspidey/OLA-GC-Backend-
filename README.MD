@@ -116,11 +116,12 @@ All routes use the `/api/v1` prefix. See `src/routes/index.js` for full definiti
 | POST   | `/api/v1/teacher/`        | adminController         | Create teacher/admin            |
 | PUT    | `/api/v1/teacher/:id?`    | adminController         | Update teacher/admin            |
 | DELETE | `/api/v1/teacher/:id?`    | adminController         | Remove teacher/admin            |
-| POST   | `/api/v1/teachers/`       | adminController         | Get multiple teachers (TODO: GET)|
+| GET    | `/api/v1/teachers/`       | adminController         | List or search teachers |
+| POST   | `/api/v1/teachers/bulk`   | adminController         | Bulk import teachers |
 | …      | additional exam, timer,   | examController, timerController, questionController, etc.
 
 
-> ⚠️ `POST /api/v1/teachers/` is currently used for fetching multiple teachers; this should be changed to `GET` in a future release.
+> ✅ `GET /api/v1/teachers/` now returns multiple teachers; bulk import moved to `/api/v1/teachers/bulk`.
 
 ---
 
@@ -160,7 +161,6 @@ The `authController.js` handles login and JWT issuance. Protected routes expect 
 
 ## ❗ Roadmap / TODO
 
-1. Change `POST /api/v1/teachers/` to `GET`.
 2. Add request validation middleware (e.g. `express-validator`).
 3. Implement comprehensive logging and error tracking.
 4. Write unit/integration tests for controllers and models.
