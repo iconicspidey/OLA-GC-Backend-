@@ -125,6 +125,8 @@ All routes use the `/api/v1` prefix. See `src/routes/index.js` for full definiti
 | DELETE | `/api/v1/teacher/:id?`    | adminController         | Remove teacher/admin            |
 | GET    | `/api/v1/teachers/`       | adminController         | List or search teachers |
 | POST   | `/api/v1/teachers/bulk`   | adminController         | Bulk import teachers |
+| POST   | `/api/v1/exams/students`  | examController          | Register students for exams     |
+| GET    | `/api/v1/exams/results/class/:class` | examController | Get all results for a class (admin) |
 | …      | additional exam, timer,   | examController, timerController, questionController, etc.
 
 

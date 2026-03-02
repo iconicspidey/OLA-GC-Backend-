@@ -247,5 +247,29 @@ module.exports = {
           message: MSG.ERROR.STUDENT_UPLOAD_FAIL
         });
       });
+  },
+
+  async classResults(req, res) {
+    // return all exam results for a given class (admin only)
+    if (await isAuth(req.body, req.cookies.admin_token) === false) {
+      return res.status(400).send({
+        errored: true,
+        message: MSG.ERROR.UNAUTHORISED_ACCESS
+      });
+    }
+    const className = req.params.class;
+    if (!className) {
+      return res.status(400).send({ errored: true, message: MSG.ERROR.INPUT_INVALID });
+    }
+    return Results.findAll({ where: { class: className } })
+      .then((rows) => {
+        res.status(200).send({
+          errored: !(rows && rows.length >= 1),
+          message: !(rows && rows.length >= 1) ? MSG.ERROR.RECORD_NOT_FOUND : rows
+        });
+      })
+      .catch(() => {
+        res.status(400).send({ errored: true, message: MSG.ERROR.RECORD_NOT_FOUND });
+      });
   }
 };

@@ -68,6 +68,6 @@ module.exports = (app) => {
   app.get("/api/v1/exams/results", examsController.results);
   app.post("/api/v1/exams/results/:ans?", examsController.submitAnswer);
   // requries admin access -- add/remove students to take exams
-  app.post("/api/v1/exams/students", examsController.addStudents);
-  // -- list questions for that subject, student info, list of subjects due
+  app.post("/api/v1/exams/students", examsController.addStudents);  // get all results for a class (admin only)
+  app.get('/api/v1/exams/results/class/:class', examsController.classResults);  // -- list questions for that subject, student info, list of subjects due
 };
