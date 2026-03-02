@@ -111,6 +111,12 @@ All routes use the `/api/v1` prefix. See `src/routes/index.js` for full definiti
 | GET    | `/api/v1/students/`       | studentController       | List students                   |
 | POST   | `/api/v1/students/`       | studentController       | Bulk import students            |
 | PUT    | `/api/v1/students/promote`| studentController       | Promote students between classes |
+| POST   | `/api/v1/timer/`          | timerController         | Create or update timers         |
+| GET    | `/api/v1/timers/`         | timerController         | List all timers                 |
+| DELETE | `/api/v1/timer/:id?`      | timerController         | Delete a timer                  |
+| PUT    | `/api/v1/timer/:id/extend`| timerController         | Extend a timer by minutes       |
+| POST   | `/api/v1/students/`       | studentController       | Bulk import students            |
+| PUT    | `/api/v1/students/promote`| studentController       | Promote students between classes |
 | GET    | `/api/v1/me`              | adminController         | Get own admin profile           |
 | GET    | `/api/v1/classes`         | adminController         | List classes                    |
 | GET    | `/api/v1/teacher/:id?`    | adminController         | Retrieve teacher/admin          |

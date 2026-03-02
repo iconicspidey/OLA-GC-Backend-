@@ -86,6 +86,33 @@ module.exports = {
         });
       });
   },
+  async extend(req, res) {
+    // extend existing timer by given minutes
+    if (await isAuth(req.body, req.cookies.admin_token) === false) {
+      return res.status(400).send({
+        errored: true,
+        message: MSG.ERROR.UNAUTHORISED_ACCESS
+      });
+    }
+    if (!req.params.id || typeof req.body.minutes !== 'number' || req.body.minutes <= 0) {
+      return res.status(400).send({ errored: true, message: MSG.ERROR.INPUT_INVALID });
+    }
+    return Timers.findByPk(req.params.id)
+      .then((timer) => {
+        if (!timer) {
+          return res.status(404).send({ errored: true, message: MSG.ERROR.RECORD_NOT_FOUND });
+        }
+        const newStop = new Date(timer.stop_time);
+        newStop.setMinutes(newStop.getMinutes() + req.body.minutes);
+        return timer.update({ stop_time: newStop })
+          .then((updated) => {
+            res.status(200).send({ errored: false, message: updated });
+          });
+      })
+      .catch(() => {
+        res.status(400).send({ errored: true, message: MSG.ERROR.RECORD_UPDATE_FAILED });
+      });
+  },
   async remove(req, res) {
     // fetch all timers
     if (await isAuth(req.body, req.cookies.admin_token) === false) {
