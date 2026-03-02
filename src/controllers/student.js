@@ -184,8 +184,34 @@ module.exports = {
           message: MSG.ERROR.RECORD_NOT_FOUND
         });
       });
+  },
+  // promote students from one class to another in bulk
+  async promote(req, res) {
+    if (await isAuth(req.body, req.cookies.admin_token) === false) {
+      return res.status(400).send({
+        errored: true,
+        message: MSG.ERROR.UNAUTHORISED_ACCESS
+      });
+    }
+    const { fromClass, toClass } = req.body;
+    if (!fromClass || !toClass) {
+      return res.status(400).send({ errored: true, message: MSG.ERROR.INPUT_INVALID });
+    }
+
+    return Students.update({ class: toClass }, { where: { class: fromClass } })
+      .then(([affected]) => {
+        res.status(200).send({
+          errored: (affected < 1),
+          message: (affected < 1)
+            ? MSG.ERROR.RECORD_UPDATE_FAILED
+            : `${affected} student(s) promoted from ${fromClass} to ${toClass}`
+        });
+      })
+      .catch((error) => {
+        res.status(400).send({
+          errored: true,
+          message: error.errors ? error.errors[0].message : MSG.ERROR.RECORD_UPDATE_FAILED
+        });
+      });
   }
-  // @TO-DO: Change student class (promote/demote)
-  // --> change class of students (in bulk)
-  // @TO-DO: Mark results
 };
