@@ -251,17 +251,42 @@ module.exports = {
       })
       .catch(() => {
         res.status(400).send({ errored: true, message: MSG.ERROR.DELETE_UNSUCCESSFUL });
-      });  },
+      });
+  },
 
   async count(req, res) {
     // return number of students matching optional criteria (e.g., class)
-    if ((await isAuth(req.body, req.cookies.admin_token, 'any')) === false) {
+    if ((await isAuth(req.body, req.cookies.admin_token, "any")) === false) {
       return res.status(400).send({ errored: true, message: MSG.ERROR.UNAUTHORISED_ACCESS });
     }
     const criteria = Object.keys(req.query).length > 0 ? req.query : {};
     return Students.count({ where: criteria })
       .then((cnt) => {
         res.status(200).send({ errored: false, message: { count: cnt } });
+      })
+      .catch(() => {
+        res.status(400).send({ errored: true, message: MSG.ERROR.INVALID_SEARCH });
+      });  },
+
+  async search(req, res) {
+    // search students by name substring
+    if ((await isAuth(req.body, req.cookies.admin_token, 'any')) === false) {
+      return res.status(400).send({ errored: true, message: MSG.ERROR.UNAUTHORISED_ACCESS });
+    }
+    const name = req.query.name;
+    if (!name || name.trim().length === 0) {
+      return res.status(400).send({ errored: true, message: MSG.ERROR.INPUT_INVALID });
+    }
+    return Students.findAll({
+      where: {
+        full_name: { [require('sequelize').Op.like]: `%${name}%` }
+      }
+    })
+      .then((results) => {
+        res.status(200).send({
+          errored: !(results && results.length >= 1),
+          message: !(results && results.length >= 1) ? MSG.ERROR.RECORD_NOT_FOUND : results
+        });
       })
       .catch(() => {
         res.status(400).send({ errored: true, message: MSG.ERROR.INVALID_SEARCH });

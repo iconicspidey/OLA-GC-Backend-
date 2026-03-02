@@ -110,6 +110,8 @@ All routes use the `/api/v1` prefix. See `src/routes/index.js` for full definiti
 | PUT    | `/api/v1/student/:id/password` | studentController  | Reset student password (admin)  |
 | DELETE | `/api/v1/student/:id?`    | studentController       | Delete student                  |
 | GET    | `/api/v1/students/`       | studentController       | List students                   |
+| GET    | `/api/v1/students/search` | studentController       | Search students by name         |
+| GET    | `/api/v1/students/count`  | studentController       | Get number of students (optional filters via query) |
 | POST   | `/api/v1/students/`       | studentController       | Bulk import students            |
 | PUT    | `/api/v1/students/promote`| studentController       | Promote students between classes |
 | DELETE | `/api/v1/students`       | studentController       | Bulk delete students by criteria |
@@ -128,6 +130,7 @@ All routes use the `/api/v1` prefix. See `src/routes/index.js` for full definiti
 | PUT    | `/api/v1/teacher/:id?`    | adminController         | Update teacher/admin            |
 | DELETE | `/api/v1/teacher/:id?`    | adminController         | Remove teacher/admin            |
 | GET    | `/api/v1/teachers/`       | adminController         | List or search teachers |
+| GET    | `/api/v1/teachers/count`  | adminController         | Get number of teachers (optional filters) |
 | POST   | `/api/v1/teachers/bulk`   | adminController         | Bulk import teachers |
 | POST   | `/api/v1/exams/students`  | examController          | Register students for exams     |
 | GET    | `/api/v1/exams/results/class/:class` | examController | Get all results for a class (admin) |

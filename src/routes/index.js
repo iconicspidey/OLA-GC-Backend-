@@ -20,6 +20,8 @@ module.exports = (app) => {
   app.put("/api/v1/student/:id", studentController.update);
   app.delete("/api/v1/student/:id?", studentController.remove);
   app.get("/api/v1/students/", studentController.getmultiple);
+  app.get("/api/v1/students/search", studentController.search); // search students by name
+  app.get("/api/v1/students/count", studentController.count);
   app.post("/api/v1/students/", studentController.bulk);
   // ###################################################
   // #           Admin endpoints                       #
@@ -32,6 +34,7 @@ module.exports = (app) => {
   app.put("/api/v1/teacher/:id?", adminController.update);
   app.delete("/api/v1/teacher/:id?", adminController.remove);
   app.get("/api/v1/teachers/", adminController.getmultiple); // changed to GET for listing/search
+  app.get("/api/v1/teachers/count", adminController.countTeachers); // count teachers
   app.post("/api/v1/teachers/bulk", adminController.bulk); // bulk upload of teachers now on /bulk
   app.put("/api/v1/super/", adminController.changeSuperAdminData);
   // ###################################################

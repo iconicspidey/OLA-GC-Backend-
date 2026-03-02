@@ -274,6 +274,21 @@ module.exports = {
         });
       });
   },
+
+  async countTeachers(req, res) {
+    // count teacher/admin records, optional filter by role/class
+    if ((await isAuth(req.body, req.cookies.admin_token, 'any')) === false) {
+      return res.status(400).send({ errored: true, message: MSG.ERROR.UNAUTHORISED_ACCESS });
+    }
+    const criteria = Object.keys(req.query).length > 0 ? req.query : {};
+    return Adminlogin.count({ where: criteria })
+      .then((cnt) => {
+        res.status(200).send({ errored: false, message: { count: cnt } });
+      })
+      .catch(() => {
+        res.status(400).send({ errored: true, message: MSG.ERROR.INVALID_SEARCH });
+      });
+  },
   async logout(req, res) {
     // change token
     if ((await isAuth(req.body, req.cookies.admin_token, "any")) === false) {
