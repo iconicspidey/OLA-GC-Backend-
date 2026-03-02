@@ -3,6 +3,7 @@ const adminController = require("../controllers").admin;
 const questionController = require("../controllers").question;
 const timerController = require("../controllers").timer;
 const examsController = require("../controllers").exams;
+const authMiddleware = require("../middleware/auth");
 
 module.exports = (app) => {
   app.get("/api/", (req, res) =>
@@ -25,6 +26,18 @@ module.exports = (app) => {
   app.post("/api/v1/students/", studentController.bulk);
   // ###################################################
   // #           Admin endpoints                       #
+  // #         (Login and logout)                      #
+  // ###################################################
+  app.post("/api/v1/teacher/login/", adminController.login);
+  app.post("/api/v1/teacher/logout/", adminController.logout);
+  // exams login is also public
+  app.post("/api/v1/exams/login", examsController.login);
+
+  // apply authentication middleware for all following /api/v1 routes
+  app.use('/api/v1', authMiddleware.requireAdmin('any'));
+
+  // ###################################################
+  // #           Admin endpoints                       #
   // #         (Staff management)                      #
   // ###################################################
   app.get("/api/v1/me", adminController.self);
@@ -37,12 +50,6 @@ module.exports = (app) => {
   app.get("/api/v1/teachers/count", adminController.countTeachers); // count teachers
   app.post("/api/v1/teachers/bulk", adminController.bulk); // bulk upload of teachers now on /bulk
   app.put("/api/v1/super/", adminController.changeSuperAdminData);
-  // ###################################################
-  // #           Admin endpoints                       #
-  // #         (Login and logout)                      #
-  // ###################################################
-  app.post("/api/v1/teacher/login/", adminController.login);
-  app.post("/api/v1/teacher/logout/", adminController.logout);
   // ###################################################
   // #           Question endpoints                    #
   // #          (By teachers and principal)            #
@@ -64,7 +71,6 @@ module.exports = (app) => {
   // #              Exams endpoints                    #
   // #             (By students only)                  #
   // ###################################################
-  app.post("/api/v1/exams/login", examsController.login);
   app.get("/api/v1/exams/student/", examsController.self);
   app.get("/api/v1/exams/subjects/", examsController.subjects);
   app.get("/api/v1/exams/questions/", examsController.questions);

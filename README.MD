@@ -10,7 +10,7 @@ A **computer‑based testing (CBT)** system backend for *Our Lady Apostle Girls 
 - Authentication for admins with JWT tokens
 - Bulk import of students via CSV-like payload
 - Sequelize models, migrations and configuration
-- Basic middleware (CORS, body parsing, error handling)
+- Basic middleware (CORS, body parsing, error handling) including a global authentication middleware applied to all `/api/v1` routes
 
 ---
 
@@ -84,6 +84,8 @@ A **computer‑based testing (CBT)** system backend for *Our Lady Apostle Girls 
      ```bash
      npm start
      ```
+
+   > A global auth middleware enforces admin/student tokens on `/api/v1` routes; public endpoints like login are mounted before it.
 
    The application listens on `process.env.PORT` or `3000` by default.
 
