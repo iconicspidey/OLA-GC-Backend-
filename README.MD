@@ -107,6 +107,7 @@ All routes use the `/api/v1` prefix. See `src/routes/index.js` for full definiti
 | GET    | `/api/v1/student/:id?`    | studentController       | Retrieve single student         |
 | POST   | `/api/v1/student/`        | studentController       | Create student                  |
 | PUT    | `/api/v1/student/:id`     | studentController       | Update student                  |
+| PUT    | `/api/v1/student/:id/password` | studentController  | Reset student password (admin)  |
 | DELETE | `/api/v1/student/:id?`    | studentController       | Delete student                  |
 | GET    | `/api/v1/students/`       | studentController       | List students                   |
 | POST   | `/api/v1/students/`       | studentController       | Bulk import students            |
