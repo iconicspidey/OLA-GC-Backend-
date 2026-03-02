@@ -232,4 +232,25 @@ module.exports = {
         });
       });
   },
+
+  // remove students matching given criteria (body or query) in bulk
+  async bulkRemove(req, res) {
+    if ((await isAuth(req.body, req.cookies.admin_token)) === false) {
+      return res.status(400).send({ errored: true, message: MSG.ERROR.UNAUTHORISED_ACCESS });
+    }
+    const criteria = Object.keys(req.query).length > 0 ? req.query : req.body;
+    if (Object.keys(criteria).length === 0) {
+      return res.status(400).send({ errored: true, message: MSG.ERROR.INPUT_INVALID });
+    }
+    return Students.destroy({ where: criteria })
+      .then((count) => {
+        res.status(200).send({
+          errored: count <= 0,
+          message: count <= 0 ? MSG.ERROR.DELETE_UNSUCCESSFUL : `${count} student(s) deleted`,
+        });
+      })
+      .catch(() => {
+        res.status(400).send({ errored: true, message: MSG.ERROR.DELETE_UNSUCCESSFUL });
+      });
+  }
 };
