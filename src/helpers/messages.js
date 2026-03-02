@@ -1,0 +1,41 @@
+module.exports = {
+  SUCCESS: {
+    STUDENT_ADDED: 'Student has been added successfully',
+    REGISTERATION_SUCCESSFL: 'Registeration successful.',
+    RECORD_UPDATED: 'Record has been updated successfully',
+    DELETE_SUCCESS: 'Delete operation successful',
+    STAFF_CREATED: 'Staff account created successfully',
+    STUDENT_UPLOAD_SUCCESS: 'Student upload is successful',
+    QUESTION_INSERT: 'Question has been inserted successfully',
+    BULK_OPERATION_SUCCESSFUL: 'Success..!! Bulk operation has been successful',
+    TIMER_SET: 'Timer has been updated successfully',
+    PROGRESS_SAVED: 'Progress saved.'
+  },
+  ERROR: {
+    UNAUTHORISED_ACCESS: 'Sorry, you do not have access to the requested content. Kindly contact the system admin for more info',
+    STUDENT_ADD_FAILED: 'Unable to add student. Kindly try again and make sure you supply all required data',
+    BAD_REQUEST: 'Sorry, cannot process request. Input format does not match. Kindly check the documentation and try again',
+    EMPTY_USERNAME: 'Username cannot be empty',
+    LESS_CHARACTERS: 'Input has less characters',
+    INVALID_PASSWORD: 'Password is not valid. Kindly provide a valid password',
+    INVALID_PASSWORD_LENGTH: 'Password length should be entered as specified.',
+    ERROR_REGISTERATION: 'An error occured trying to register you. Kindly try again',
+    INPUT_INVALID: 'Input entered is not valid',
+    NOT_A_NUMBER: 'Input must be a number',
+    DELETE_UNSUCCESSFUL: 'Delete operation was NOT successful. Try again',
+    INVALID_SEARCH: 'No result found',
+    INVALID_OPTION_SELECTION: 'You have made an invalid option selection. It can only be either of a,b,c,d,e ',
+    INVALID_CLASS_SELECTION: 'Class selected does not exist',
+    RECORD_UPDATE_FAILED: 'Sorry, update not possible. Try again',
+    RECORD_NOT_FOUND: 'Sorry, record not found. Try searching again',
+    STAFF_CREATE_FAILED: 'Sorry, staff account could not be created. Try again',
+    STUDENT_UPLOAD_FAIL: 'Student upload was NOT successful. Check the file and try again',
+    ERROR_LOGGING_IN: 'Sorry, login was not possible. Try again',
+    WRONG_LOGIN: 'Login not successful. Try again using correct details',
+    LOGOUT_FAILED: 'Sorry, logout was not possible',
+    QUESTION_INSERT_FAIL: 'Unable to insert question. Try again',
+    SUBJECT_NOT_FOUND: 'Selected subject does not exist for selected class.',
+    TIMER_UPDATE_FAILED: 'Timer update unsuccessful. Try again',
+    ERROR_RETRIEVING_RESULT: 'There seem to be an error retrieving result of student. Kindly confirm if student is allowed to take this exams'
+  }
+};
